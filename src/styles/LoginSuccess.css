@@ -1,0 +1,32 @@
+.blocktext {
+  margin-bottom: 2rem;
+}
+
+.drawing-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: #f0f0f0;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.drawing-board {
+  border: 1px solid #000;
+  background-color: #fff;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.button-container button {
+  margin-left: 1rem;
+}

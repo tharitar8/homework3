@@ -3,18 +3,22 @@ import './App.css'
 import SignUpPage from './Components/SignUpPage'
 import LoginPage from './Components/LoginPage'
 import LoginSuccess from './Components/LoginSuccess'
+import LoginFailed from './Components/LoginFailed'
 
 function App() {
 	return (
-		<Router>
+		<div className='app-container'>
 			<div className='App'>
-				<Routes>
-					<Route path='/' element={<LoginPage />} />
-					<Route path='/login-successful' element={<LoginSuccess />} />
-					<Route path='/signup' element={<SignUpPage />} />
-				</Routes>
+				<Router>
+					<Routes>
+						<Route path='/' element={<LoginPage />} />
+						<Route path='/login-successful' element={<LoginSuccess />} />
+						<Route path='/login-failed' element={<LoginFailed />} />
+						<Route path='/signup' element={<SignUpPage />} />
+					</Routes>
+				</Router>
 			</div>
-		</Router>
+		</div>
 	)
 }
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import '../styles/LoginPage.css'
+
 import {
 	Button,
 	TextField,
-	FormControlLabel,
-	Checkbox,
 	Link,
 	Grid,
 	Box,
@@ -12,12 +12,13 @@ import {
 	Container,
 } from '@mui/material'
 
-
 function LoginPage() {
 	const [formData, setFormData] = useState({
 		username: '',
 		password: '',
 	})
+	const [errMsg, setErrMsg] = useState('')
+	const [successMsg, setSuccessMsg] = useState('')
 
 	const handleChange = (event) => {
 		const { name, value } = event.target
@@ -26,35 +27,57 @@ function LoginPage() {
 			[name]: value,
 		}))
 	}
-    const navigate = useNavigate()
 
 	const handleLogin = () => {
-		console.log('username: ' + formData.username)
-        navigate('/login-successful')
+		const storedUsername = localStorage.getItem('username')
+		const storedPassword = localStorage.getItem('password')
+
+		if (
+			storedUsername === formData.username &&
+			storedPassword === formData.password
+		) {
+			setSuccessMsg('Login successful. Redirecting...')
+			setFormData({ username: '', password: '' })
+			navigate('/login-successful')
+		} else {
+			navigate('/login-failed')
+		}
 	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		console.log(formData)
+		if (!formData.username.trim() || !formData.password.trim()) {
+			setErrMsg('Please fill in all fields')
+		} else {
+			setErrMsg('')
+			handleLogin()
+		}
 	}
 
+	const navigate = useNavigate()
+
 	return (
-		<Container component='main' maxWidth='sm'>
+		<Container component='main' maxWidth='sm' className='signin-box'>
 			<Box
 				sx={{
-					boxShadow: 3,
-					borderRadius: 2,
 					px: 4,
-					py: 6,
-					marginTop: 8,
+					py: 5,
+					marginTop: 1,
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center',
 				}}>
-				<Typography component='h1' variant='h5'>
-					Sign in
+				<Typography component='h1' variant='h3' className='custom-heading'>
+					Log In
 				</Typography>
+
 				<Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+					{errMsg && (
+						<Typography variant='body2' color='error'>
+							{errMsg}
+						</Typography>
+					)}
+
 					<TextField
 						margin='normal'
 						required
@@ -79,22 +102,19 @@ function LoginPage() {
 						value={formData.password}
 						onChange={handleChange}
 					/>
-					<FormControlLabel
-						control={<Checkbox value='remember' color='primary' />}
-						label='Remember me'
-					/>
 					<Button
+						id='myButton'
 						type='submit'
 						fullWidth
 						variant='contained'
-						sx={{ mt: 3, mb: 2 }}
-						onClick={handleLogin}>
+						sx={{ mt: 3, mb: 2 }}>
 						Sign In
 					</Button>
-					<Grid container>
+
+					<Grid container justifyContent='center' alignItems='center'>
 						<Grid item>
-							<Link href='/signup' variant='body2'>
-								{"Don't have an account? Sign Up"}
+							<Link href='/signup' variant='body2' id='myLink'>
+								Don't have an account? Sign Up
 							</Link>
 						</Grid>
 					</Grid>

@@ -1,0 +1,6 @@
+.signup-box {
+  background: linear-gradient(to bottom, rgba(86, 151, 204, 0.991), rgba(255, 255, 255, 0.991));
+  color: white;
+  font-size: 30px;
+  border-radius: 10px;
+}
