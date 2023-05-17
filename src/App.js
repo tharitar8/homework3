@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import SignUpPage from './Components/SignUpPage'
 import LoginPage from './Components/LoginPage'
-import LoginSuccess from './Components/LogInSuccess'
-import LoginFailed from './Components/LogInFailed'
+import LoginSuccess from './Components/LoginSuccess'
+import LoginFailed from './Components/LoginFailed'
 
 function App() {
 	return (
