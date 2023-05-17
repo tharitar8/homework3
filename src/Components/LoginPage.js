@@ -22,6 +22,7 @@ function LoginPage() {
 
 	const handleChange = (event) => {
 		const { name, value } = event.target
+		// console.log(formData)
 		setFormData((prevData) => ({
 			...prevData,
 			[name]: value,
