@@ -13,11 +13,13 @@ import {
 } from '@mui/material'
 
 function LoginPage() {
+	const navigate = useNavigate()
 	const [formData, setFormData] = useState({
 		username: '',
 		password: '',
 	})
 	const [errMsg, setErrMsg] = useState('')
+	// eslint-disable-next-line no-unused-vars
 	const [successMsg, setSuccessMsg] = useState('')
 
 	const handleChange = (event) => {
@@ -54,8 +56,6 @@ function LoginPage() {
 			handleLogin()
 		}
 	}
-
-	const navigate = useNavigate()
 
 	return (
 		<Container component='main' maxWidth='sm' className='signin-box'>
