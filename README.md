@@ -1,3 +1,5 @@
+https://cfg-login-app.netlify.app/
+
 # User Login Application
 - This application allows users to sign up and log in using local storage. 
 - Before logging in, users need to sign up to create an account and store the data. 
