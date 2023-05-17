@@ -1,78 +1,91 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../styles/SignUpPage.css'
 import {
-  Button,
-  TextField,
-  Link,
-  Grid,
-  Box,
-  Typography,
-  Container,
-} from '@mui/material';
+	Button,
+	TextField,
+	Link,
+	Grid,
+	Box,
+	Typography,
+	Container,
+} from '@mui/material'
 
+// setState user name and password
 const SignUpPage = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  });
-  const [errMsg, setErrMsg] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
+	const [formData, setFormData] = useState({
+		username: '',
+		password: '',
+	})
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+	// set success and Err message on empty string
+	const [errMsg, setErrMsg] = useState('')
+	const [successMsg, setSuccessMsg] = useState('')
+	// handleChange function use to update the formdata state response to changes in form input fields
+	const handleChange = (event) => {
+		const { name, value } = event.target
+		// callBack function for updating the formData state
+		setFormData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}))
+	}
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(formData);
-    if (!formData.username?.trim() || !formData.password?.trim()) {
-      setErrMsg('Please fill in all fields');
-    } else {
-      setErrMsg('');
-      setSuccessMsg('Signup successful');
-      localStorage.setItem('username', formData.username); // Store the username in local storage
-      localStorage.setItem('password', formData.password); // Store the password in local storage
-      setFormData({
-        username: '',
-        password: '',
-      });
-    }
-  };
+	const handleSubmit = (event) => {
+		event.preventDefault()
+		console.log(formData)
+		// cannot be empty field
+		if (!formData.username?.trim() || !formData.password?.trim()) {
+			setErrMsg('Please fill in all fields')
+		} else {
+			setErrMsg('')
+			setSuccessMsg('Signup successful')
+			// Store the username&pwd in local storage
+			localStorage.setItem('username', formData.username)
+			localStorage.setItem('password', formData.password)
+			setFormData({
+				username: '',
+				password: '',
+			})
+		}
+	}
 
-  const navigate = useNavigate()
+	const navigate = useNavigate()
+	const handleBackClick = () => {
+		setSuccessMsg('')
+		navigate('/')
+	}
 
-  const handleBackClick = () => {
-	setSuccessMsg('')
-	navigate('/')
-  }
-
-  return (
-		<Container component='main' maxWidth='sm' className='signup-box'>
+	return (
+		// mui template
+		<Container
+			component='main'
+			maxWidth='sm'
+			className='signup-box'
+			id='myInput'>
 			<Box
 				sx={{
 					px: 4,
-					py: 6,
-					marginTop: 8,
+					py: 5,
+					marginTop: 40,
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center',
 				}}>
-				<Typography component='h1' variant='h5'>
+				<Typography component='h1' variant='h3'>
 					Sign Up
 				</Typography>
 
+				{/* show successMsg */}
 				{successMsg ? (
 					<>
 						<Typography variant='h2' color='success'>
 							{successMsg}
 						</Typography>
+
 						<Button variant='contained' onClick={handleBackClick}>
-							Back to Home
+							{' '}
+							Back to login
 						</Button>
 					</>
 				) : (
@@ -86,6 +99,7 @@ const SignUpPage = () => {
 								{errMsg}
 							</Typography>
 						)}
+
 						<TextField
 							margin='normal'
 							required
@@ -98,6 +112,7 @@ const SignUpPage = () => {
 							value={formData.username}
 							onChange={handleChange}
 						/>
+
 						<TextField
 							margin='normal'
 							required
@@ -112,10 +127,11 @@ const SignUpPage = () => {
 						/>
 
 						<Button
+							className='signup-bttn'
 							type='submit'
 							fullWidth
 							variant='contained'
-							sx={{ mt: 3, mb: 2 }}>
+							sx={{ mt: 3, mb: 2, backgroundColor: 'pink', color: 'white' }}>
 							Sign Up
 						</Button>
 
@@ -131,6 +147,6 @@ const SignUpPage = () => {
 			</Box>
 		</Container>
 	)
-};
+}
 
-export default SignUpPage;
+export default SignUpPage
