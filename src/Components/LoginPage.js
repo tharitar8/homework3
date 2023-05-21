@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/LoginPage.css'
+// import all these lines for hw4
+import { createStore } from 'redux'
+import rootReducer from './reducers/combineReducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUsername } from './actions/username'
 
 import {
 	Button,
@@ -18,6 +23,12 @@ function LoginPage() {
 		username: '',
 		password: '',
 	})
+
+	// create store
+	const store = createStore(rootReducer)
+	const dispatch = useDispatch()
+	const username = useSelector((state) => state.username)
+
 	const [errMsg, setErrMsg] = useState('')
 	// eslint-disable-next-line no-unused-vars
 	const [successMsg, setSuccessMsg] = useState('')
@@ -31,9 +42,11 @@ function LoginPage() {
 		}))
 	}
 
+	// remove localstorage 
+	// use dispatch stored username
 	const handleLogin = () => {
-		const storedUsername = localStorage.getItem('username')
-		const storedPassword = localStorage.getItem('password')
+		const storedUsername = 'username'
+		const storedPassword = 'password'
 
 		if (
 			storedUsername === formData.username &&
@@ -41,6 +54,7 @@ function LoginPage() {
 		) {
 			setSuccessMsg('Login successful. Redirecting...')
 			setFormData({ username: '', password: '' })
+			dispatch(setUsername(storedUsername))
 			navigate('/login-successful')
 		} else {
 			navigate('/login-failed')
@@ -126,3 +140,11 @@ function LoginPage() {
 }
 
 export default LoginPage
+
+// homework4
+// modify code above first
+// install redux react-redux
+// import necessary Redux function and hooks
+// create store.js for holding state tree to access the state
+// remove localStorage
+// dispatch setUsername action in handleLogin

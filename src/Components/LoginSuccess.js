@@ -9,11 +9,17 @@ import {
 import { useNavigate } from 'react-router-dom'
 import '../styles/LoginSuccess.css'
 
+import { useSelector } from 'react-redux'
+
+
+
 function LoginSuccess() {
 	// const [errMsg, setErrMsg] = useState('')
 	const navigate = useNavigate()
 	// Set showSignOutMsg state to false initially
 	const [showSignOutMsg, setShowSignOutMsg] = useState(false)
+	// hw4 access username from redux store
+	const username = useSelector((state) => state.username)
 
 	// function popup after user signing out
 	const handleSignOut = () => {
@@ -42,7 +48,7 @@ function LoginSuccess() {
 					alignItems: 'center',
 				}}>
 				<Typography variant='h4' color='green' sx={{ textAlign: 'center' }}>
-					🎊 Congratulations! 🎊 <br /> You've successfully logged in
+					🎊 Congratulations! 🎊 <br /> You've successfully logged in {username}
 				</Typography>
 
 				<Button

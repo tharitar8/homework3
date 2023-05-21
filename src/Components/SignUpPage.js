@@ -11,8 +11,17 @@ import {
 	Container,
 } from '@mui/material'
 
+//hw4
+import { useDispatch } from 'react-redux'
+import { setUsername } from './actions/username'
+
+
+
 // setState user name and password
 const SignUpPage = () => {
+	const navigate = useNavigate()
+	const dispatch = useDispatch()
+
 	const [formData, setFormData] = useState({
 		username: '',
 		password: '',
@@ -39,23 +48,19 @@ const SignUpPage = () => {
 			setErrMsg('Please fill in all fields')
 		} else {
 			setErrMsg('')
-			setSuccessMsg('Signup successful')
-			// Store the username&pwd in local storage
-			localStorage.setItem('username', formData.username)
-			localStorage.setItem('password', formData.password)
-			setFormData({
-				username: '',
-				password: '',
-			})
+			setSuccessMsg(`Signup successful ${formData.username}`)
+			// Store the username&pwd in store
+			dispatch(setUsername(formData.username));
+			}
 		}
-	}
 
-	const navigate = useNavigate()
+		
+	// Redirect to home page
 	const handleBackClick = () => {
 		setSuccessMsg('')
 		navigate('/')
 	}
-
+	
 	return (
 		// mui template
 		<Container
