@@ -48,13 +48,13 @@ const SignUpPage = () => {
 			setErrMsg('Please fill in all fields')
 		} else {
 			setErrMsg('')
-			setSuccessMsg(`Signup successful ${formData.username}`)
+			setSuccessMsg(`Signup successful`)
 			// Store the username&pwd in store
-			dispatch(setUsername(formData.username));
+			dispatch(setUsername(formData.username, formData.password))
 			}
 		}
 
-		
+		 
 	// Redirect to home page
 	const handleBackClick = () => {
 		setSuccessMsg('')
@@ -85,7 +85,10 @@ const SignUpPage = () => {
 				{successMsg ? (
 					<>
 						<Typography variant='h2' color='success'>
-							{successMsg}
+							{successMsg}{' '}
+							<span style={{ color: 'red', fontSize: '2rem' }}>
+								{formData.username}
+							</span>
 						</Typography>
 
 						<Button variant='contained' onClick={handleBackClick}>

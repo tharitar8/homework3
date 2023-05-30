@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/LoginPage.css'
-// import all these lines for hw4
-import { createStore } from 'redux'
-import rootReducer from './reducers/combineReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUsername } from './actions/username'
 
@@ -24,41 +21,50 @@ function LoginPage() {
 		password: '',
 	})
 
-	// create store
-	const store = createStore(rootReducer)
+	// const username = useSelector((state) => {
+	// console.log('username:', username)
+	// return state.username })
+
+	const usernameState = useSelector((state) => state.username)
+	// console.log('username:', usernameState)
 	const dispatch = useDispatch()
-	const username = useSelector((state) => state.username)
+
+	const storedUsername = usernameState.username
+	const storedPassword = usernameState.password
+	console.log('storedUsername:', storedUsername)
+	console.log('storedPassword:', storedPassword)
 
 	const [errMsg, setErrMsg] = useState('')
-	// eslint-disable-next-line no-unused-vars
 	const [successMsg, setSuccessMsg] = useState('')
 
 	const handleChange = (event) => {
 		const { name, value } = event.target
-		// console.log(formData)
 		setFormData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}))
 	}
 
-	// remove localstorage 
-	// use dispatch stored username
 	const handleLogin = () => {
-		const storedUsername = 'username'
-		const storedPassword = 'password'
+		// console.log('formData.username:', formData.username)
+		// console.log('formData.password:', formData.password)
+		// console.log('storedUsername:', storedUsername)
+		// console.log('storedPassword:', storedPassword)
 
 		if (
-			storedUsername === formData.username &&
-			storedPassword === formData.password
+			//adding the optional chaining operator (?.), the comparison will only be performed if storedUsername and storedPassword are defined
+			formData.username === storedUsername&&
+			formData.password === storedPassword
 		) {
+			console.log('Login successful. Redirecting...')
 			setSuccessMsg('Login successful. Redirecting...')
 			setFormData({ username: '', password: '' })
-			dispatch(setUsername(storedUsername))
 			navigate('/login-successful')
 		} else {
+			console.log('Login failed. Redirecting...')
 			navigate('/login-failed')
 		}
+		dispatch(setUsername(formData.username, formData.password))
 	}
 
 	const handleSubmit = (event) => {
@@ -141,8 +147,7 @@ function LoginPage() {
 
 export default LoginPage
 
-// homework4
-// modify code above first
+// homework
 // install redux react-redux
 // import necessary Redux function and hooks
 // create store.js for holding state tree to access the state
